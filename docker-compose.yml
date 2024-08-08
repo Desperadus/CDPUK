@@ -4,6 +4,7 @@ services:
     restart: always
     volumes:
       - app-db-data:/var/lib/postgresql/data/pgdata
+      - ./backend/init.sql:/docker-entrypoint-initdb.d/init.sql # Novelty to get the addon
     env_file:
       - .env
     environment:
