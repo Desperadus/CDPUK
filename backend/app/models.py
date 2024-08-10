@@ -6,6 +6,7 @@ from sqlmodel import Field, Relationship, SQLModel
 
 from sqlalchemy.orm import relationship
 
+from sqlalchemy import Index
 
 # Shared properties
 class UserBase(SQLModel):
@@ -143,6 +144,11 @@ class Mentor(SQLModel, table=True):
         sa_relationship=relationship(
             "User", back_populates="mentors_mentor", foreign_keys="Mentor.mentor_id"
         )
+    )
+
+    __table_args__ = (
+        Index('ix_mentee_id', 'mentee_id'),
+        Index('ix_mentor_id', 'mentor_id'),
     )
 
 

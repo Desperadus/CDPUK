@@ -73,6 +73,13 @@ def create_questionnaire(*, session: Session, questionnaire_in: Questionnaire, u
     session.refresh(db_questionnaire)
     return db_questionnaire
 
+def delete_questionnaire(*, session: Session, questionnaire_id: uuid.UUID) -> Questionnaire:
+    statement = select(Questionnaire).where(Questionnaire.id == questionnaire_id)
+    db_questionnaire = session.exec(statement).first()
+    session.delete(db_questionnaire)
+    session.commit()
+    return db_questionnaire
+
 
 def get_questionnaires_by_user(*, session: Session, user_id: uuid.UUID) -> list[Questionnaire]:
     statement = select(Questionnaire).where(Questionnaire.user_id == user_id)
