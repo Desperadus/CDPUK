@@ -97,3 +97,25 @@ export type ValidationError = {
   msg: string
   type: string
 }
+
+export type Mentor = {
+  id: number;
+  mentee_id: number;
+  mentor_id: number;
+};
+
+export type Questionnaire = {
+  id: number;
+  question: string;
+  answer?: boolean | null;
+  written_answer?: string | null;
+  notification_date?: string | null; // Assuming date is stored as string
+  user_id: number;
+};
+
+export type QuestionnaireCreate = {
+  question: string;
+  answer?: boolean | null;
+  written_answer?: string | null;
+  notification_date?: string | null;
+};

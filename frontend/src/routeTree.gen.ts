@@ -20,6 +20,8 @@ import { Route as LayoutIndexImport } from './routes/_layout/index'
 import { Route as LayoutSettingsImport } from './routes/_layout/settings'
 import { Route as LayoutItemsImport } from './routes/_layout/items'
 import { Route as LayoutAdminImport } from './routes/_layout/admin'
+import { Route as LayoutMentorsImport } from './routes/_layout/mentors'
+import { Route as LayoutQuestionnairesImport } from './routes/_layout/questionnaires'
 
 // Create/Update Routes
 
@@ -68,6 +70,16 @@ const LayoutAdminRoute = LayoutAdminImport.update({
   getParentRoute: () => LayoutRoute,
 } as any)
 
+const LayoutMentorsRoute = LayoutMentorsImport.update({ 
+  path: '/mentors', // Corrected path
+  getParentRoute: () => LayoutRoute,
+} as any);
+
+const LayoutQuestionnairesRoute = LayoutQuestionnairesImport.update({
+  path: '/questionnaires', // Correct path
+  getParentRoute: () => LayoutRoute,
+} as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -108,6 +120,14 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutIndexImport
       parentRoute: typeof LayoutImport
     }
+    '/mentors': {  // Add this definition for /mentors
+      preLoaderRoute: typeof LayoutMentorsImport
+      parentRoute: typeof LayoutImport
+    }
+    '/questionnaires': { // Add this definition
+      preLoaderRoute: typeof LayoutQuestionnairesImport
+      parentRoute: typeof LayoutImport
+    }
   }
 }
 
@@ -119,6 +139,8 @@ export const routeTree = rootRoute.addChildren([
     LayoutItemsRoute,
     LayoutSettingsRoute,
     LayoutIndexRoute,
+    LayoutMentorsRoute, // Include the mentors route in the layout
+    LayoutQuestionnairesRoute, // Include the questionnaires route in the layout
   ]),
   LoginRoute,
   RecoverPasswordRoute,

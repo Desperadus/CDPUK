@@ -1,5 +1,5 @@
 import uuid
-from typing import Any
+from typing import Any, List
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel import col, delete, func, select
@@ -30,7 +30,7 @@ from app.models import (
 
 router = APIRouter()
 
-@router.post("/mentors/", response_model=Mentor)
+@router.post("/{mentor_email}", response_model=Mentor)
 def assign_mentor(
     *,
     session: SessionDep,
@@ -53,7 +53,7 @@ def assign_mentor(
     mentor = crud.create_mentor(session=session, mentee_id=current_user.id, mentor_id=mentor.id)
     return mentor
 
-@router.delete("/mentors/{mentor_id}", response_model=Message)
+@router.delete("/{mentor_id}", response_model=Message)
 def delete_mentor(
     *,
     session: SessionDep,
@@ -69,3 +69,15 @@ def delete_mentor(
     session.delete(mentor)
     session.commit()
     return Message(message="Mentor deleted successfully")
+
+@router.get("/", response_model=List[Mentor])
+def get_mentors(
+    *,
+    session: SessionDep,
+    current_user: CurrentUser
+) -> Any:
+    """
+    Retrieve mentors for the current user.
+    """
+    mentors = crud.get_mentors_by_mentee(session=session, mentee_id=current_user.id)
+    return mentors

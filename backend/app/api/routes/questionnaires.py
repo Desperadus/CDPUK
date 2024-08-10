@@ -31,7 +31,7 @@ from app.utils import generate_new_account_email, send_email
 
 router = APIRouter()
 
-@router.post("/questionnaires", response_model=Questionnaire)
+@router.post("/", response_model=Questionnaire)
 def create_questionnaire_for_user(
     *,
     session: SessionDep,
@@ -44,7 +44,7 @@ def create_questionnaire_for_user(
     questionnaire = crud.create_questionnaire(session=session, questionnaire_in=questionnaire_in, user_id=current_user.id)
     return questionnaire
 
-@router.delete("/questionnaires/{questionnaire_id}", response_model=Message)
+@router.delete("/{questionnaire_id}", response_model=Message)
 def delete_questionnaire_for_user(
     *,
     session: SessionDep,
@@ -63,7 +63,7 @@ def delete_questionnaire_for_user(
     session.commit()
     return Message(message="Questionnaire deleted successfully")
 
-@router.get("/questionnaires", response_model=list[Questionnaire])
+@router.get("/", response_model=list[Questionnaire])
 def get_questionnaires_for_user(
     session: SessionDep,
     current_user: CurrentUser

@@ -1,43 +1,45 @@
 import {
-  Button,
   Menu,
   MenuButton,
   MenuItem,
   MenuList,
+  IconButton,
   useDisclosure,
-} from "@chakra-ui/react"
-import { BsThreeDotsVertical } from "react-icons/bs"
-import { FiEdit, FiTrash } from "react-icons/fi"
+} from "@chakra-ui/react";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import { FiEdit, FiTrash } from "react-icons/fi";
 
-import type { ItemPublic, UserPublic } from "../../client"
-import EditUser from "../Admin/EditUser"
-import EditItem from "../Items/EditItem"
-import Delete from "./DeleteAlert"
+import type { ItemPublic, UserPublic, Questionnaire } from "../../client";
+import EditUser from "../Admin/EditUser";
+import EditItem from "../Items/EditItem";
+import Delete from "./DeleteAlert";
+import EditQuestionnaire from "../../components/Questionnaires/EditQuestionnaire"; 
 
 interface ActionsMenuProps {
-  type: string
-  value: ItemPublic | UserPublic
-  disabled?: boolean
+  type: string;
+  value: ItemPublic | UserPublic | Questionnaire;
+  disabled?: boolean;
+  editModalAs?: React.ComponentType<any>;
 }
 
-const ActionsMenu = ({ type, value, disabled }: ActionsMenuProps) => {
-  const editUserModal = useDisclosure()
-  const deleteModal = useDisclosure()
+const ActionsMenu = ({ type, value, disabled, editModalAs = EditItem }: ActionsMenuProps) => {
+  const editModal = useDisclosure();
+  const deleteModal = useDisclosure();
+
+  const EditModalComponent = type === "User" ? EditUser : type === "Questionnaire" ? EditQuestionnaire : editModalAs;
 
   return (
     <>
       <Menu>
         <MenuButton
           isDisabled={disabled}
-          as={Button}
-          rightIcon={<BsThreeDotsVertical />}
-          variant="unstyled"
+          as={IconButton}
+          aria-label="Options"
+          icon={<BsThreeDotsVertical />}
+          variant="ghost"
         />
         <MenuList>
-          <MenuItem
-            onClick={editUserModal.onOpen}
-            icon={<FiEdit fontSize="16px" />}
-          >
+          <MenuItem onClick={editModal.onOpen} icon={<FiEdit fontSize="16px" />}>
             Edit {type}
           </MenuItem>
           <MenuItem
@@ -48,28 +50,23 @@ const ActionsMenu = ({ type, value, disabled }: ActionsMenuProps) => {
             Delete {type}
           </MenuItem>
         </MenuList>
-        {type === "User" ? (
-          <EditUser
-            user={value as UserPublic}
-            isOpen={editUserModal.isOpen}
-            onClose={editUserModal.onClose}
-          />
-        ) : (
-          <EditItem
-            item={value as ItemPublic}
-            isOpen={editUserModal.isOpen}
-            onClose={editUserModal.onClose}
-          />
-        )}
-        <Delete
-          type={type}
-          id={value.id}
-          isOpen={deleteModal.isOpen}
-          onClose={deleteModal.onClose}
-        />
       </Menu>
+      <EditModalComponent
+        // Pass props dynamically based on type
+        {...(type === "User" && { user: value as UserPublic })}
+        {...(type === "Item" && { item: value as ItemPublic })}
+        {...(type === "Questionnaire" && { questionnaire: value })} // No need to cast here
+        isOpen={editModal.isOpen}
+        onClose={editModal.onClose}
+      />
+      <Delete
+        type={type}
+        id={value.id} 
+        isOpen={deleteModal.isOpen}
+        onClose={deleteModal.onClose}
+      />
     </>
-  )
-}
+  );
+};
 
-export default ActionsMenu
+export default ActionsMenu;

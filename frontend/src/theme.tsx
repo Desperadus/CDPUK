@@ -14,7 +14,7 @@ const theme = extendTheme({
       success: "#48BB78",
       danger: "#E53E3E",
       light: "#FAFAFA",
-      dark: "#1A202C",
+      dark: "#161a21",
       darkSlate: "#252D3D",
       dim: "#A0AEC0",
     },

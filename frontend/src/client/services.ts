@@ -18,6 +18,9 @@ import type {
   ItemPublic,
   ItemsPublic,
   ItemUpdate,
+  Questionnaire,
+  QuestionnaireCreate,
+  Mentor
 } from "./models"
 
 export type TDataLoginAccessToken = {
@@ -513,5 +516,118 @@ export class ItemsService {
         422: `Validation Error`,
       },
     })
+  }
+}
+
+export class MentorsService {
+  /**
+   * Get Mentors
+   * Retrieve mentors for the current user.
+   * @returns UserPublic[] Successful Response
+   * @throws ApiError
+   */
+  public static getMentors(): CancelablePromise<UserPublic[]> {
+    return __request(OpenAPI, {
+      method: "GET",
+      url: "/api/v1/mentors/",
+    });
+  }
+
+  /**
+   * Assign Mentor
+   * Assign a mentor to the current user.
+   * @param mentor_email The email of the mentor to assign
+   * @returns Mentor Successful Response
+   * @throws ApiError
+   */
+  public static assignMentor(data: { mentor_email: string }): CancelablePromise<Mentor> {
+      return __request(OpenAPI, {
+        method: "POST",
+        url: `/api/v1/mentors/${data.mentor_email}`,
+        mediaType: "application/json",
+      });
+  }
+
+  /**
+   * Delete Mentor
+   * Delete a mentor from the current user.
+   * @param mentorId The ID of the mentor to delete
+   * @returns Message Successful Response
+   * @throws ApiError
+   */
+  public static deleteMentor(mentorId: number): CancelablePromise<Message> {
+    return __request(OpenAPI, {
+      method: "DELETE",
+      url: `/api/v1/mentors/${mentorId}`,
+    });
+  }
+}
+
+export class QuestionnairesService {
+  /**
+   * Get Questionnaires
+   * Retrieve questionnaires for the current user.
+   * @returns Questionnaire[] Successful Response
+   * @throws ApiError
+   */
+  public static getQuestionnaires(): CancelablePromise<Questionnaire[]> {
+    return __request(OpenAPI, {
+      method: "GET",
+      url: "/api/v1/questionnaires/",
+    });
+  }
+
+  /**
+   * Create Questionnaire
+   * Create a new questionnaire for the current user.
+   * @param requestBody The questionnaire data
+   * @returns Questionnaire Successful Response
+   * @throws ApiError
+   */
+  public static createQuestionnaire(data: {
+    requestBody: QuestionnaireCreate;
+  }): CancelablePromise<Questionnaire> {
+    return __request(OpenAPI, {
+      method: "POST",
+      url: "/api/v1/questionnaires/",
+      body: data.requestBody,
+      mediaType: "application/json",
+    });
+  }
+
+  /**
+   * Update Questionnaire
+   * Update a questionnaire.
+   * @param questionnaireId The ID of the questionnaire to update
+   * @param requestBody The updated questionnaire data
+   * @returns Questionnaire Successful Response
+   * @throws ApiError
+   */
+  public static updateQuestionnaire(data: {
+    questionnaireId: number;
+    requestBody: Questionnaire;
+  }): CancelablePromise<Questionnaire> {
+    return __request(OpenAPI, {
+      method: "PUT",
+      url: `/api/v1/questionnaires/${data.questionnaireId}`,
+      body: data.requestBody,
+      mediaType: "application/json",
+    });
+  }
+
+  /**
+   * Delete Questionnaire
+   * Delete a questionnaire.
+   * @param questionnaireId The ID of the questionnaire to delete
+   * @returns Message Successful Response
+   * @throws ApiError
+   */
+  public static deleteQuestionnaire(
+    questionnaireId: number,
+  ): CancelablePromise<Message> {
+    return __request(OpenAPI, {
+      method: "DELETE",
+      url: `/api/v1/questionnaires/${questionnaireId}`,
+    });
   }
 }
