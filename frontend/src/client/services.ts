@@ -526,7 +526,7 @@ export class MentorsService {
    * @returns UserPublic[] Successful Response
    * @throws ApiError
    */
-  public static getMentors(): CancelablePromise<UserPublic[]> {
+  public static getMentors(): CancelablePromise<Mentor[]> {
     return __request(OpenAPI, {
       method: "GET",
       url: "/api/v1/mentors/",

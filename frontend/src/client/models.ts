@@ -102,6 +102,7 @@ export type Mentor = {
   id: number;
   mentee_id: number;
   mentor_id: number;
+  mentor_email: string;
 };
 
 export type Questionnaire = {

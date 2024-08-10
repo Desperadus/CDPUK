@@ -9,7 +9,7 @@ import {
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FiEdit, FiTrash } from "react-icons/fi";
 
-import type { ItemPublic, UserPublic, Questionnaire } from "../../client";
+import type { ItemPublic, UserPublic, Questionnaire, Mentor } from "../../client";
 import EditUser from "../Admin/EditUser";
 import EditItem from "../Items/EditItem";
 import Delete from "./DeleteAlert";
@@ -17,7 +17,7 @@ import EditQuestionnaire from "../../components/Questionnaires/EditQuestionnaire
 
 interface ActionsMenuProps {
   type: string;
-  value: ItemPublic | UserPublic | Questionnaire;
+  value: ItemPublic | UserPublic | Questionnaire | Mentor;
   disabled?: boolean;
   editModalAs?: React.ComponentType<any>;
 }
