@@ -134,6 +134,7 @@ class Mentor(SQLModel, table=True):
     id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
     mentee_id: uuid.UUID = Field(foreign_key="user.id", nullable=False)
     mentor_id: uuid.UUID = Field(foreign_key="user.id", nullable=False)
+    mentor_email: EmailStr | None = Field(default=None, max_length=255)
 
     mentee: User = Relationship(
         sa_relationship=relationship(

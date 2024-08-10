@@ -50,7 +50,7 @@ def assign_mentor(
     mentor = crud.get_user_by_email(session=session, email=mentor_email)
     if not mentor:
         raise HTTPException(status_code=404, detail="Mentor not found")
-    mentor = crud.create_mentor(session=session, mentee_id=current_user.id, mentor_id=mentor.id)
+    mentor = crud.create_mentor(session=session, mentee_id=current_user.id, mentor_id=mentor.id, mentor_email=mentor_email)
     return mentor
 
 @router.delete("/{mentor_id}", response_model=Message)

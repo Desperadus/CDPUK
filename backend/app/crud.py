@@ -53,8 +53,8 @@ def create_item(*, session: Session, item_in: ItemCreate, owner_id: uuid.UUID) -
     session.refresh(db_item)
     return db_item
 
-def create_mentor(*, session: Session, mentee_id: uuid.UUID, mentor_id: uuid.UUID) -> Mentor:
-    db_mentor = Mentor(mentee_id=mentee_id, mentor_id=mentor_id)
+def create_mentor(*, session: Session, mentee_id: uuid.UUID, mentor_id: uuid.UUID, mentor_email: str) -> Mentor:
+    db_mentor = Mentor(mentee_id=mentee_id, mentor_id=mentor_id, mentor_email=mentor_email)
     session.add(db_mentor)
     session.commit()
     session.refresh(db_mentor)
