@@ -53,17 +53,17 @@ def assign_mentor(
     mentor = crud.create_mentor(session=session, mentee_id=current_user.id, mentor_id=mentor.id, mentor_email=mentor_email)
     return mentor
 
-@router.delete("/{mentor_id}", response_model=Message)
+@router.delete("/{id}", response_model=Message)
 def delete_mentor(
     *,
     session: SessionDep,
     current_user: CurrentUser,
-    mentor_id: uuid.UUID
+    id: uuid.UUID
 ) -> Any:
     """
     Delete a mentor from the current user.
     """
-    mentor = session.query(Mentor).filter_by(mentee_id=current_user.id, mentor_id=mentor_id).first()
+    mentor = session.get(Mentor, id)
     if not mentor:
         raise HTTPException(status_code=404, detail="Mentor not found")
     session.delete(mentor)
