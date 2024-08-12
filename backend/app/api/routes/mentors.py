@@ -43,6 +43,8 @@ def assign_mentor(
     potential_mentor = crud.get_user_by_email(session=session, email=mentor_email)
     if not potential_mentor:
         raise HTTPException(status_code=404, detail="Mentor not found")
+    if potential_mentor.id == current_user.id:
+        raise HTTPException(status_code=403, detail="Cannot assign yourself as a mentor")
     mentor = session.query(Mentor).filter_by(mentee_id=current_user.id, mentor_id=potential_mentor.id).first()
     print(mentor)
     if mentor is not None:
