@@ -2,7 +2,7 @@ import { Box, Flex, Icon, Text, useColorModeValue } from "@chakra-ui/react"
 import { useQueryClient } from "@tanstack/react-query"
 import { Link } from "@tanstack/react-router"
 import {
-  FiBriefcase,
+  //FiBriefcase,
   FiHome,
   FiSettings,
   FiUsers,
@@ -14,7 +14,7 @@ import type { UserPublic } from "../../client"
 
 const items = [
   { icon: FiHome, title: "Dashboard", path: "/" },
-  { icon: FiBriefcase, title: "Items", path: "/items" },
+  // { icon: FiBriefcase, title: "Items", path: "/items" },
   { icon: FiUserPlus, title: "Mentors", path: "/mentors" }, // Added mentors item
   { icon: FiHelpCircle, title: "Questionnaires", path: "/questionnaires" }, // Added questionnaires item
   { icon: FiSettings, title: "User Settings", path: "/settings" },
