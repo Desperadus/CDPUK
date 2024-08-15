@@ -81,3 +81,15 @@ def get_mentors(
     """
     mentors = crud.get_mentors_by_mentee(session=session, mentee_id=current_user.id)
     return mentors
+
+@router.get("/mentees", response_model=List[Mentor])
+def get_mentees(
+    *,
+    session: SessionDep,
+    current_user: CurrentUser
+) -> Any:
+    """
+    Retrieve mentees for the current user.
+    """
+    mentees = crud.get_mentees_by_mentor(session=session, mentor_id=current_user.id)
+    return mentees

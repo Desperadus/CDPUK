@@ -65,6 +65,10 @@ def get_mentors_by_mentee(*, session: Session, mentee_id: uuid.UUID) -> list[Men
     statement = select(Mentor).where(Mentor.mentee_id == mentee_id)
     return session.exec(statement).all()
 
+def get_mentees_by_mentor(*, session: Session, mentor_id: uuid.UUID) -> list[Mentor]:
+    statement = select(Mentor).where(Mentor.mentor_id == mentor_id)
+    return session.exec(statement).all()
+
 
 def create_questionnaire(*, session: Session, questionnaire_in: Questionnaire, user_id: uuid.UUID) -> Questionnaire:
     db_questionnaire = Questionnaire.model_validate(questionnaire_in, update={"user_id": user_id})
