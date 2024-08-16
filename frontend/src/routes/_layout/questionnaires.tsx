@@ -73,6 +73,8 @@ function QuestionnairesTable() {
             <Tr>
               <Th>Question</Th>
               <Th>Answer</Th>
+              <Th>Written Answer</Th>
+              <Th>Deadline</Th>
               <Th>Actions</Th>
             </Tr>
           </Thead>
@@ -102,6 +104,8 @@ function QuestionnairesTable() {
                       ? "No"
                       : "N/A"}
                   </Td>
+                  <Td>{questionnaire.written_answer}</Td>
+                  <Td>{questionnaire.notification_date}</Td>
                   <Td>
                     <QuestionnaireActionsMenu questionnaire={questionnaire} /> 
                   </Td>
