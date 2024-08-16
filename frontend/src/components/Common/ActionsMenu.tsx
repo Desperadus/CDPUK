@@ -39,7 +39,7 @@ const ActionsMenu = ({ type, value, disabled, editModalAs = EditItem }: ActionsM
           variant="ghost"
         />
         <MenuList>
-          {type !== "Pokus" && (
+          {type !== "Mentor" && (
             <MenuItem onClick={editModal.onOpen} icon={<FiEdit fontSize="16px" />}>
               Edit {type}
             </MenuItem>
