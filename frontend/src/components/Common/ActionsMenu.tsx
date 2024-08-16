@@ -39,9 +39,11 @@ const ActionsMenu = ({ type, value, disabled, editModalAs = EditItem }: ActionsM
           variant="ghost"
         />
         <MenuList>
-          <MenuItem onClick={editModal.onOpen} icon={<FiEdit fontSize="16px" />}>
-            Edit {type}
-          </MenuItem>
+          {type !== "Pokus" && (
+            <MenuItem onClick={editModal.onOpen} icon={<FiEdit fontSize="16px" />}>
+              Edit {type}
+            </MenuItem>
+          )}
           <MenuItem
             onClick={deleteModal.onOpen}
             icon={<FiTrash fontSize="16px" />}
@@ -51,14 +53,17 @@ const ActionsMenu = ({ type, value, disabled, editModalAs = EditItem }: ActionsM
           </MenuItem>
         </MenuList>
       </Menu>
-      <EditModalComponent
-        // Pass props dynamically based on type
-        {...(type === "User" && { user: value as UserPublic })}
-        {...(type === "Item" && { item: value as ItemPublic })}
-        {...(type === "Questionnaire" && { questionnaire: value })} // No need to cast here
-        isOpen={editModal.isOpen}
-        onClose={editModal.onClose}
-      />
+      {type !== "Pokus666" && (
+        <EditModalComponent
+          // Pass props dynamically based on type
+          {...(type === "User" && { user: value as UserPublic })}
+          {...(type === "Item" && { item: value as ItemPublic })}
+          {...(type === "Questionnaire" && { questionnaire: value })}
+          {...(type === "Mentor" && { mentor: value as Mentor })}
+          isOpen={editModal.isOpen}
+          onClose={editModal.onClose}
+        />
+      )}
       <Delete
         type={type}
         id={value.id} 

@@ -408,6 +408,9 @@ export type TDataUpdateItem = {
 export type TDataDeleteItem = {
   id: number
 }
+export type TDataDeleteMentor = {
+  id: number
+}
 
 export class ItemsService {
   /**
@@ -555,13 +558,21 @@ export class MentorsService {
    * @returns Message Successful Response
    * @throws ApiError
    */
-  public static deleteMentor(mentorId: number): CancelablePromise<Message> {
+  public static deleteMentor(data: TDataDeleteMentor): CancelablePromise<Message> {
+    const { id } = data
     return __request(OpenAPI, {
       method: "DELETE",
-      url: `/api/v1/mentors/${mentorId}`,
-    });
+      url: "/api/v1/mentors/{id}",
+      path: {
+        id,
+      },
+      errors: {
+        422: `Validation Error`,
+      },
+    })
   }
 }
+
 
 export class QuestionnairesService {
   /**

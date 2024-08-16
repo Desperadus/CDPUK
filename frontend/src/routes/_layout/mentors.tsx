@@ -96,7 +96,7 @@ function MentorsTable() {
                   <Td>
                     <ActionsMenu
                       type={"Mentor"}
-                      value={{ ...mentor, id: Number(mentor.id) }} // Assuming ActionsMenu expects string IDs
+                      value={mentor} // Assuming ActionsMenu expects string IDs
                     />
                   </Td>
                 </Tr>
